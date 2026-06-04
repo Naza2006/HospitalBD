@@ -86,3 +86,113 @@ CREATE TABLE Medicamentos
     IdTratamiento INT
 );
 GO
+
+--11.PRIMARY KEY Pacientes
+ALTER TABLE Pacientes
+ADD CONSTRAINT PK_Pacientes
+PRIMARY KEY (IdPaciente);
+GO
+
+--12.PRIMARY KEY Medicos
+ALTER TABLE Medicos
+ADD CONSTRAINT PK_Medicos
+PRIMARY KEY (IdMedico);
+GO
+
+--PK necesarias para referencias
+ALTER TABLE Especialidades
+ADD CONSTRAINT PK_Especialidades
+PRIMARY KEY (IdEspecialidad);
+GO
+
+ALTER TABLE Citas
+ADD CONSTRAINT PK_Citas
+PRIMARY KEY (IdCita);
+GO
+
+ALTER TABLE Habitaciones
+ADD CONSTRAINT PK_Habitaciones
+PRIMARY KEY (IdHabitacion);
+GO
+
+ALTER TABLE Tratamientos
+ADD CONSTRAINT PK_Tratamientos
+PRIMARY KEY (IdTratamiento);
+GO
+
+ALTER TABLE Medicamentos
+ADD CONSTRAINT PK_Medicamentos
+PRIMARY KEY (IdMedicamento);
+GO
+
+--13.NOT NULL nombre paciente ya aplicado en CREATE TABLE
+
+--14.NOT NULL nombre médico ya aplicado en CREATE TABLE
+
+--15.UNIQUE correo paciente
+ALTER TABLE Pacientes
+ADD CONSTRAINT UQ_Pacientes_Correo
+UNIQUE (Correo);
+GO
+
+--16.UNIQUE correo médico
+ALTER TABLE Medicos
+ADD CONSTRAINT UQ_Medicos_Correo
+UNIQUE (Correo);
+GO
+
+--17.CHECK edad >= 0
+ALTER TABLE Pacientes
+ADD CONSTRAINT CHK_Pacientes_Edad
+CHECK (Edad >= 0);
+GO
+
+--18.CHECK salario > 0
+ALTER TABLE Medicos
+ADD CONSTRAINT CHK_Medicos_Salario
+CHECK (Salario > 0);
+GO
+
+--19.DEFAULT fecha registro ya aplicado en CREATE TABLE
+
+--20.FK Médicos a Especialidades
+ALTER TABLE Medicos
+ADD CONSTRAINT FK_Medicos_Especialidades
+FOREIGN KEY (IdEspecialidad)
+REFERENCES Especialidades(IdEspecialidad);
+GO
+
+--21.FK Citas a Pacientes
+ALTER TABLE Citas
+ADD CONSTRAINT FK_Citas_Pacientes
+FOREIGN KEY (IdPaciente)
+REFERENCES Pacientes(IdPaciente);
+GO
+
+--22.FK Citas a Médicos
+ALTER TABLE Citas
+ADD CONSTRAINT FK_Citas_Medicos
+FOREIGN KEY (IdMedico)
+REFERENCES Medicos(IdMedico);
+GO
+
+--23.FK Tratamientos a Pacientes
+ALTER TABLE Tratamientos
+ADD CONSTRAINT FK_Tratamientos_Pacientes
+FOREIGN KEY (IdPaciente)
+REFERENCES Pacientes(IdPaciente);
+GO
+
+--24.FK Medicamentos a Tratamientos
+ALTER TABLE Medicamentos
+ADD CONSTRAINT FK_Medicamentos_Tratamientos
+FOREIGN KEY (IdTratamiento)
+REFERENCES Tratamientos(IdTratamiento);
+GO
+
+--25.FK Habitaciones a Pacientes
+ALTER TABLE Habitaciones
+ADD CONSTRAINT FK_Habitaciones_Pacientes
+FOREIGN KEY (IdPaciente)
+REFERENCES Pacientes(IdPaciente);
+GO
