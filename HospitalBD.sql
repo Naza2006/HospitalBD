@@ -196,3 +196,85 @@ ADD CONSTRAINT FK_Habitaciones_Pacientes
 FOREIGN KEY (IdPaciente)
 REFERENCES Pacientes(IdPaciente);
 GO
+
+USE HospitalDB;
+GO
+
+/*=================================================
+  MODULO III (26 - 40)
+=================================================*/
+
+--26.Agregar columna teléfono a Pacientes
+ALTER TABLE Pacientes
+ADD Telefono VARCHAR(20);
+GO
+
+--27.Agregar columna dirección a Pacientes
+ALTER TABLE Pacientes
+ADD Direccion VARCHAR(200);
+GO
+
+--28.Agregar columna género
+ALTER TABLE Pacientes
+ADD Genero VARCHAR(20);
+GO
+
+--29.Agregar columna tipo_sangre
+ALTER TABLE Pacientes
+ADD TipoSangre VARCHAR(5);
+GO
+
+--30.Agregar columna fecha_nacimiento
+ALTER TABLE Pacientes
+ADD FechaNacimiento DATE;
+GO
+
+--31.Modificar tamaño del campo nombre
+ALTER TABLE Pacientes
+ALTER COLUMN Nombre VARCHAR(150) NOT NULL;
+GO
+
+--32.Modificar tamaño del campo dirección
+ALTER TABLE Pacientes
+ALTER COLUMN Direccion VARCHAR(300);
+GO
+
+--33.Agregar columna experiencia a Médicos
+ALTER TABLE Medicos
+ADD Experiencia INT;
+GO
+
+--34.Agregar columna turno
+ALTER TABLE Medicos
+ADD Turno VARCHAR(30);
+GO
+
+--35.Agregar columna observaciones
+ALTER TABLE Medicos
+ADD Observaciones VARCHAR(500);
+GO
+
+--36.Eliminar columna observaciones
+ALTER TABLE Medicos
+DROP COLUMN Observaciones;
+GO
+
+--37.Agregar columna estado a Citas
+ALTER TABLE Citas
+ADD Estado VARCHAR(30);
+GO
+
+--38.Agregar columna costo_consulta
+ALTER TABLE Citas
+ADD CostoConsulta DECIMAL(10,2);
+GO
+
+--39.Modificar tipo de dato del costo
+ALTER TABLE Citas
+ALTER COLUMN CostoConsulta DECIMAL(12,2);
+GO
+
+--40.Agregar columna disponibilidad a Habitaciones
+ALTER TABLE Habitaciones
+ADD Disponibilidad VARCHAR(30);
+GO
