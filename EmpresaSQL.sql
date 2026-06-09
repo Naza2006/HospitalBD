@@ -1,3 +1,4 @@
+--1.
 USE master
 GO
 
@@ -65,5 +66,67 @@ CREATE TABLE Empresa.TEmpleadoProyecto (
 	CONSTRAINT FK_TEmpleadoProyecto_TEmpleado FOREIGN KEY(nEmpleadoID) REFERENCES Personal.TEmpleado(nEmpleadoID),
 	CONSTRAINT FK_TEmpleadoProyecto_TProyecto FOREIGN KEY(nProyectoID) REFERENCES Empresa.TProyecto(nProyectoID),
 	CONSTRAINT UQ_TEmpleadoProyecto UNIQUE(nEmpleadoID, nProyectoID)
+)
+GO
+
+--2.
+USE EmpresaSQL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD cEmail NVARCHAR(100) NULL,
+	cTelefono NVARCHAR(15) NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ALTER COLUMN cNombre NVARCHAR(100) NOT NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ALTER COLUMN cApellido NVARCHAR(100) NOT NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD cDireccion NVARCHAR(150) NULL,
+	nEdad INT NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD CONSTRAINT CK_TEmpleado_Edad CHECK(nEdad BETWEEN 18 AND 65)
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD CONSTRAINT UQ_TEmpleado_Email UNIQUE(cEmail)
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD bActivo BIT NOT NULL CONSTRAINT DF_TEmpleado_Activo DEFAULT 1
+GO
+
+ALTER TABLE Personal.TEmpleado
+DROP COLUMN cDireccion
+GO
+
+ALTER TABLE Personal.TEmpleado
+ALTER COLUMN cTelefono VARCHAR(20) NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD cGenero CHAR(1) NULL
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD CONSTRAINT CK_TEmpleado_Genero CHECK(cGenero IN ('M', 'F'))
+GO
+
+ALTER TABLE Personal.TEmpleado
+ADD dFechaNacimiento DATE NULL
+GO
+
+CREATE TABLE Empresa.TSucursal (
+	nSucursalID INT IDENTITY(1,1) CONSTRAINT PK_TSucursal PRIMARY KEY,
+	cNombreSucursal NVARCHAR(80) NOT NULL,
+	cDireccion NVARCHAR(150) NOT NULL,
+	cTelefono VARCHAR(20) NULL
 )
 GO
