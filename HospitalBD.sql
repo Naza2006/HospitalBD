@@ -278,3 +278,97 @@ GO
 ALTER TABLE Habitaciones
 ADD Disponibilidad VARCHAR(30);
 GO
+
+USE HospitalDB;
+GO
+
+/*=================================================
+  MODULO IV - ELIMINACION DE OBJETOS (DROP)
+=================================================*/
+
+--41.Eliminar una tabla temporal
+CREATE TABLE TablaTemporal
+(
+    Id INT PRIMARY KEY,
+    Descripcion VARCHAR(100)
+);
+GO
+
+DROP TABLE TablaTemporal;
+GO
+
+--42.Eliminar una restricción CHECK
+ALTER TABLE Pacientes
+DROP CONSTRAINT CHK_Pacientes_Edad;
+GO
+
+--43.Eliminar una restricción UNIQUE
+ALTER TABLE Pacientes
+DROP CONSTRAINT UQ_Pacientes_Correo;
+GO
+
+--44.Eliminar una columna
+ALTER TABLE Habitaciones
+DROP COLUMN Disponibilidad;
+GO
+
+--45.Eliminar una tabla de pruebas
+CREATE TABLE TablaPruebas
+(
+    Id INT PRIMARY KEY,
+    Nombre VARCHAR(50)
+);
+GO
+
+DROP TABLE TablaPruebas;
+GO
+
+/* 46. Crear y eliminar una tabla Auditoria */
+CREATE TABLE Auditoria
+(
+    IdAuditoria INT IDENTITY(1,1) PRIMARY KEY,
+    Fecha DATETIME DEFAULT GETDATE(),
+    Descripcion VARCHAR(200)
+);
+GO
+
+DROP TABLE Auditoria;
+GO
+
+/* 47. Crear y eliminar una tabla Logs */
+CREATE TABLE Logs
+(
+    IdLog INT IDENTITY(1,1) PRIMARY KEY,
+    Fecha DATETIME DEFAULT GETDATE(),
+    Mensaje VARCHAR(200)
+);
+GO
+
+DROP TABLE Logs;
+GO
+
+/* 48. Eliminar una FOREIGN KEY */
+ALTER TABLE Habitaciones
+DROP CONSTRAINT FK_Habitaciones_Pacientes;
+GO
+
+/* 49. Eliminar una tabla MedicamentosPrueba */
+CREATE TABLE MedicamentosPrueba
+(
+    IdMedicamento INT PRIMARY KEY,
+    Nombre VARCHAR(100)
+);
+GO
+
+DROP TABLE MedicamentosPrueba;
+GO
+
+/* 50. Eliminar una base de datos de pruebas */
+IF DB_ID('HospitalDB_Pruebas') IS NULL
+BEGIN
+    CREATE DATABASE HospitalDB_Pruebas;
+END
+GO
+
+DROP DATABASE HospitalDB_Pruebas;
+GO
